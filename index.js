@@ -43,15 +43,24 @@ var onload = function () {
             }
         },
         {
-            title: "Tower", scene: "Tower", screenshot: "Tower.jpg", doNotUseCDN: true, size: "28 MB", onload: function () {
+            title: "Tower", scene: "Tower", screenshot: "Tower.jpg", doNotUseCDN: true, size: "28 MB", onload: function (scene) {
                 //scene.getMeshByName("Labels").setEnabled(false);
-                scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+                console.log(scene.meshes);
+                //scene.gravity = new BABYLON.Vector3(0, 0, 0);
                 var camera = scene.activeCamera;
-                camera.applyGravity = true;
-                camera.ellipsoid = new BABYLON.Vector3(0.5, 1, 0.5);
-
+                //camera.applyGravity = false;
+                //camera.ellipsoid = new BABYLON.Vector3(500, 100, 500);
+                //camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
                 scene.collisionsEnabled = true;
                 camera.checkCollisions = true;
+
+                for(var i = 0;i<scene.meshes.length;i++){
+                    var mesh = scene.meshes[i];
+                    mesh.checkCollisions = true;
+                    if(mesh.name === '#Skydome'){
+                        mesh.checkCollisions = false;
+                    }
+                }
             }
         }
 
@@ -138,14 +147,14 @@ var onload = function () {
                     mode = ".binary";
                 }
 
-                loadScene(demo.id !== undefined ? demo.id : demo.scene, mode, sceneLocation, function () {
+                loadScene(demo.id !== undefined ? demo.id : demo.scene, mode, sceneLocation, function (scene) {
                     BABYLON.StandardMaterial.BumpTextureEnabled = true;
                     if (demo.collisions !== undefined) {
                         scene.collisionsEnabled = demo.collisions;
                     }
 
                     if (demo.onload) {
-                        demo.onload();
+                        demo.onload(scene);
                     }
                 });
             };
@@ -418,7 +427,7 @@ var onload = function () {
                     if (scene.activeCamera) {
                         scene.activeCamera.attachControl(canvas);
                         if (then) {
-                            then();
+                            then(scene);
                         }
                     }
 
@@ -449,7 +458,7 @@ var onload = function () {
                     }
 
                     if (then) {
-                        then();
+                        then(scene);
                     }
 
                     // UI
