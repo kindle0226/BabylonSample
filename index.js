@@ -30,18 +30,28 @@ var onload = function () {
     // Demos
     var demos = [
         {
-            title: "HEART", scene: "Heart", screenshot: "heart.jpg", doNotUseCDN: true, size: "14 MB", onload: function () {
+            title: "HEART", scene: "Heart", screenshot: "Heart.jpg", doNotUseCDN: true, size: "14 MB", onload: function () {
+                //scene.getMeshByName("Labels").setEnabled(false);
+                var obj = scene.activeCamera;
+                console.log(obj);
+
+            }
+        },
+        {
+            title: "Meiro", scene: "Meiro", screenshot: "Meiro.jpg", doNotUseCDN: true, size: "5 MB", onload: function () {
                 //scene.getMeshByName("Labels").setEnabled(false);
             }
         },
         {
-            title: "Meiro", scene: "Meiro", screenshot: "Meiro.jpg", doNotUseCDN: true, size: "14 MB", onload: function () {
+            title: "Tower", scene: "Tower", screenshot: "Tower.jpg", doNotUseCDN: true, size: "28 MB", onload: function () {
                 //scene.getMeshByName("Labels").setEnabled(false);
-            }
-        },
-        {
-            title: "Tower", scene: "Tower", screenshot: "Tower.jpg", doNotUseCDN: true, size: "14 MB", onload: function () {
-                //scene.getMeshByName("Labels").setEnabled(false);
+                scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+                var camera = scene.activeCamera;
+                camera.applyGravity = true;
+                camera.ellipsoid = new BABYLON.Vector3(0.5, 1, 0.5);
+
+                scene.collisionsEnabled = true;
+                camera.checkCollisions = true;
             }
         }
 
