@@ -43,7 +43,7 @@ var onload = function () {
             }
         },
         {
-            title: "Tower", scene: "Tower", screenshot: "Tower.jpg", doNotUseCDN: true, size: "28 MB", onload: function (scene) {
+            title: "Tower", scene: "Tower", screenshot: "Tower.jpg", doNotUseCDN: true, size: "28 MB", onload: function (scene,engine) {
                 //scene.getMeshByName("Labels").setEnabled(false);
                 console.log(scene.meshes);
                 //scene.gravity = new BABYLON.Vector3(0, 0, 0);
@@ -64,27 +64,34 @@ var onload = function () {
             }
         },
         {
-            title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene) {
+            title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene,engine) {
                 //scene.lightsEnabled = false;
                 console.log(scene);
-                //scene.debugLayer.show();
+                //scene.debugLayer.show(true);
 
                 //scene.gravity = new BABYLON.Vector3(0, 0, 0);
                 var camera = scene.activeCamera;
                 //camera.applyGravity = false;
                 camera.ellipsoid = new BABYLON.Vector3(50, 50, 50);
-                //camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
+                camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
+                
                 scene.collisionsEnabled = true;
                 camera.checkCollisions = true;
 
                 for(var i = 0;i<scene.meshes.length;i++){
                     var mesh = scene.meshes[i];
-                    mesh.checkCollisions = true;
-                    if(mesh.name === '#Skydome'){
-                        mesh.checkCollisions = false;
+                    mesh.checkCollisions = false;
+                    if(mesh.name === '#Object011'){
+                        mesh.checkCollisions = true;
                     }
                 }
 
+            }
+        },
+        {
+            title: "Him", scene: "Him", screenshot: "Him.jpg", doNotUseCDN: true, size: "5 MB", onload: function (scene,engine) {
+                //scene.getMeshByName("Labels").setEnabled(false);
+                createScene(scene,engine);
             }
         },
 
@@ -178,7 +185,7 @@ var onload = function () {
                     }
 
                     if (demo.onload) {
-                        demo.onload(scene);
+                        demo.onload(scene,engine);
                     }
                 });
             };
@@ -451,7 +458,7 @@ var onload = function () {
                     if (scene.activeCamera) {
                         scene.activeCamera.attachControl(canvas);
                         if (then) {
-                            then(scene);
+                            then(scene,engine);
                         }
                     }
 
@@ -482,7 +489,7 @@ var onload = function () {
                     }
 
                     if (then) {
-                        then(scene);
+                        then(scene,engine);
                     }
 
                     // UI
