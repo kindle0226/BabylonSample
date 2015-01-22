@@ -64,33 +64,15 @@ var onload = function () {
             }
         },
         {
-            title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene,engine) {
-                //scene.lightsEnabled = false;
-                console.log(scene);
-                //scene.debugLayer.show(true);
-
-                //scene.gravity = new BABYLON.Vector3(0, 0, 0);
-                var camera = scene.activeCamera;
-                //camera.applyGravity = false;
-                camera.ellipsoid = new BABYLON.Vector3(50, 50, 50);
-                camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
-                
-                scene.collisionsEnabled = true;
-                camera.checkCollisions = true;
-
-                for(var i = 0;i<scene.meshes.length;i++){
-                    var mesh = scene.meshes[i];
-                    mesh.checkCollisions = false;
-                    if(mesh.name === '#Object011'){
-                        mesh.checkCollisions = true;
-                    }
-                }
-
+            title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene,engine,canvas) {
+                //scene.enablePhysics();
+                createShopScene(scene,engine,canvas);
             }
         },
         {
             title: "Him", scene: "Him", screenshot: "Him.png", doNotUseCDN: true, size: "5 MB", onload: function (scene,engine,canvas) {
                 //scene.getMeshByName("Labels").setEnabled(false);
+                //scene.debugLayer.show(true);
                 createScene(scene,engine,canvas);
             }
         },
@@ -178,6 +160,15 @@ var onload = function () {
                     mode = ".binary";
                 }
 
+                if(demo.scene === 'Shop'){
+                    //demo.onload(scene,engine);
+                    //scene.activeCamera.attachControl(canvas);
+                    var engine = new BABYLON.Engine(canvas, true);
+                    demo.onload(scene,engine,canvas);
+                    return;
+                }
+
+
                 if(demo.scene === 'Him'){
                     //demo.onload(scene,engine);
 
@@ -202,7 +193,7 @@ var onload = function () {
                     }
 
                     if (demo.onload) {
-                        demo.onload(scene,engine);
+                        demo.onload(scene,engine,canvas);
                     }
                 });
             };
