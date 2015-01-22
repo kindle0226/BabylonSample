@@ -31,10 +31,11 @@ function CameraFollowActor()
 	cameraArcRotative[0].target.z = parseFloat(meshPlayer.position.z);		
 }
 
-function createScene(scene,engine) {
-	alert(engine);
-   	engine = engine;
-	scene = scene;
+function createScene(s,e) {
+	//alert(engine);
+   	engine = e;
+	engine.displayLoadingUI();
+	scene = new BABYLON.Scene(engine);	
 	//Active gravity and collision
 	scene.gravity = new BABYLON.Vector3(0, -0.5, 0);	
     scene.collisionsEnabled = true;	
@@ -53,8 +54,8 @@ function createScene(scene,engine) {
 	cameraArcRotative[0].upperRadiusLimit = 22;
 	cameraArcRotative[0].minZ = 0;
 	cameraArcRotative[0].minX = 4096;
-	scene.activeCamera = cameraArcRotative[0];	
-	//cameraArcRotative[0].attachControl(canvas);
+	//scene.activeCamera = cameraArcRotative[0];	
+	//scene.activeCamera.attachControl(canvas);
 
 	// Terrain
 	var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "Scenes/Him/map.jpg", 100, 100, 100, 0, 12, scene, true);   
@@ -73,7 +74,7 @@ function createScene(scene,engine) {
 	Mur.checkCollisions = true;	
 	
 	// Character import
-	BABYLON.SceneLoader.ImportMesh("", "Scenes/Him", "Him.babylon", scene, function (newMeshes, particleSystems, skeletons)
+	BABYLON.SceneLoader.ImportMesh("", "", "Scenes/Him/Him.babylon", scene, function (newMeshes, particleSystems, skeletons)
 	{
 		meshPlayer = newMeshes[0];
 		meshOctree = newMeshes;
@@ -106,23 +107,23 @@ function createScene(scene,engine) {
 		}
 	});
 	
-	// engine.runRenderLoop(function () {
- //        scene.render();		
-	// 	if(scene.isReady() && meshPlayer){				
+	engine.runRenderLoop(function () {
+        scene.render();		
+		if(scene.isReady() && meshPlayer){				
 			
-	// 		CameraFollowActor();
+			CameraFollowActor();
 			
-	// 		if(PlayerCharger == false) {
-	// 			scene.stopAnimation(skeletonsPlayer[0]);
-	// 			PlayerCharger = true;
+			if(PlayerCharger == false) {
+				scene.stopAnimation(skeletonsPlayer[0]);
+				PlayerCharger = true;
 				
-	// 			octree = scene.createOrUpdateSelectionOctree();
-	// 			for(var i = 0; i < meshOctree.length; i++) {
-	// 				octree.dynamicContent.push(meshOctree[i]);
-	// 			}
-	// 		}
-	// 	}		
- //    });	
+				octree = scene.createOrUpdateSelectionOctree();
+				for(var i = 0; i < meshOctree.length; i++) {
+					octree.dynamicContent.push(meshOctree[i]);
+				}
+			}
+		}		
+    });	
 	
     window.addEventListener("resize", function () { engine.resize();});	
 	window.addEventListener("keydown", onKeyDown, false);

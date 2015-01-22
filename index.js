@@ -178,6 +178,11 @@ var onload = function () {
                     mode = ".binary";
                 }
 
+                if(demo.scene === 'Him'){
+                    demo.onload(scene,engine);
+                    return;
+                }
+
                 loadScene(demo.id !== undefined ? demo.id : demo.scene, mode, sceneLocation, function (scene) {
                     BABYLON.StandardMaterial.BumpTextureEnabled = true;
                     if (demo.collisions !== undefined) {
