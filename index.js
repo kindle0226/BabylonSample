@@ -62,7 +62,31 @@ var onload = function () {
                     }
                 }
             }
-        }
+        },
+        {
+            title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene) {
+                //scene.lightsEnabled = false;
+                console.log(scene);
+                //scene.debugLayer.show();
+
+                //scene.gravity = new BABYLON.Vector3(0, 0, 0);
+                var camera = scene.activeCamera;
+                //camera.applyGravity = false;
+                camera.ellipsoid = new BABYLON.Vector3(50, 50, 50);
+                //camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
+                scene.collisionsEnabled = true;
+                camera.checkCollisions = true;
+
+                for(var i = 0;i<scene.meshes.length;i++){
+                    var mesh = scene.meshes[i];
+                    mesh.checkCollisions = true;
+                    if(mesh.name === '#Skydome'){
+                        mesh.checkCollisions = false;
+                    }
+                }
+
+            }
+        },
 
         ];
 
