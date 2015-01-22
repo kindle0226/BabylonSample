@@ -1,5 +1,5 @@
 var PlayAnnimation = false, PlayerCharger = false, skybox, scene, sceneCharger = false, meshPlayer, meshOctree, skeletonsPlayer = [], cameraArcRotative = [], octree,
-    keys={letft:0,right:0,arriere:0,avancer:0}, VitessePerso = 5, forward, backwards;
+    keys={letft:0,right:0,arriere:0,avancer:0}, VitessePerso = 8, forward, backwards;
 var scene = null;
 var engine = null;
 function animatActor()
@@ -31,10 +31,10 @@ function CameraFollowActor()
 	cameraArcRotative[0].target.z = parseFloat(meshPlayer.position.z);		
 }
 
-function createScene(s,e) {
+function createScene(s,e,c) {
 	//alert(engine);
    	engine = e;
-	engine.displayLoadingUI();
+	//engine.displayLoadingUI();
 	scene = new BABYLON.Scene(engine);	
 	//Active gravity and collision
 	scene.gravity = new BABYLON.Vector3(0, -0.5, 0);	
@@ -55,7 +55,7 @@ function createScene(s,e) {
 	cameraArcRotative[0].minZ = 0;
 	cameraArcRotative[0].minX = 4096;
 	//scene.activeCamera = cameraArcRotative[0];	
-	//scene.activeCamera.attachControl(canvas);
+	scene.activeCamera.attachControl(c);
 
 	// Terrain
 	var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "Scenes/Him/map.jpg", 100, 100, 100, 0, 12, scene, true);   
@@ -74,7 +74,7 @@ function createScene(s,e) {
 	Mur.checkCollisions = true;	
 	
 	// Character import
-	BABYLON.SceneLoader.ImportMesh("", "", "Scenes/Him/Him.babylon", scene, function (newMeshes, particleSystems, skeletons)
+	BABYLON.SceneLoader.ImportMesh("", "Scenes/Him/", "Him.babylon", scene, function (newMeshes, particleSystems, skeletons)
 	{
 		meshPlayer = newMeshes[0];
 		meshOctree = newMeshes;
