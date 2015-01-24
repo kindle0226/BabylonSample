@@ -67,6 +67,7 @@ var onload = function () {
             title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene,engine,canvas) {
                 //scene.enablePhysics();
                 //createShopScene(scene,engine,canvas);
+                scene.ambientColor = new BABYLON.Color3(0.2, 0.2, 0.2);
                 var camera = scene.activeCamera;
                 //alert(camera.speed);
                 camera.speed = 50;
@@ -75,16 +76,13 @@ var onload = function () {
 
                 scene.gravity = new BABYLON.Vector3(0, -90, 0);
                 camera.applyGravity = true;
-                camera.ellipsoid = new BABYLON.Vector3(50, 800, 50);
+                camera.ellipsoid = new BABYLON.Vector3(800, 800, 800);
                 //camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
 
-                for(var i = 0;i<scene.meshes.length;i++){
-                    var mesh = scene.meshes[i];
-                    mesh.checkCollisions = true;
-                    if(mesh.name === '#Skydome'){
-                        mesh.checkCollisions = false;
-                    }
-                }
+                // for(var i = 0;i<scene.meshes.length;i++){
+                //     var mesh = scene.meshes[i];
+                //     mesh.checkCollisions = true;
+                // }
             }
         },
         {
