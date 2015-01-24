@@ -66,7 +66,25 @@ var onload = function () {
         {
             title: "Shop", scene: "Shop", screenshot: "Shop.jpg", doNotUseCDN: true, size: "35 MB", onload: function (scene,engine,canvas) {
                 //scene.enablePhysics();
-                createShopScene(scene,engine,canvas);
+                //createShopScene(scene,engine,canvas);
+                var camera = scene.activeCamera;
+                //alert(camera.speed);
+                camera.speed = 50;
+                scene.collisionsEnabled = true;
+                camera.checkCollisions = true;
+
+                scene.gravity = new BABYLON.Vector3(0, -90, 0);
+                camera.applyGravity = true;
+                camera.ellipsoid = new BABYLON.Vector3(50, 800, 50);
+                //camera.collisionRadius = new BABYLON.Vector3(2000, 2000, 2000);
+
+                for(var i = 0;i<scene.meshes.length;i++){
+                    var mesh = scene.meshes[i];
+                    mesh.checkCollisions = true;
+                    if(mesh.name === '#Skydome'){
+                        mesh.checkCollisions = false;
+                    }
+                }
             }
         },
         {
@@ -160,13 +178,13 @@ var onload = function () {
                     mode = ".binary";
                 }
 
-                if(demo.scene === 'Shop'){
+                /*if(demo.scene === 'Shop'){
                     //demo.onload(scene,engine);
                     //scene.activeCamera.attachControl(canvas);
                     var engine = new BABYLON.Engine(canvas, true);
                     demo.onload(scene,engine,canvas);
                     return;
-                }
+                }*/
 
 
                 if(demo.scene === 'Him'){
