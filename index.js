@@ -92,6 +92,13 @@ var onload = function () {
                 createScene(scene,engine,canvas);
             }
         },
+        {
+            title: "Test", scene: "Test", screenshot: "Test.png", doNotUseCDN: true, size: "5 MB", onload: function (scene,engine,canvas) {
+                //scene.getMeshByName("Labels").setEnabled(false);
+                //scene.debugLayer.show(true);
+                //createScene(scene,engine,canvas);
+            }
+        },
 
         ];
 
