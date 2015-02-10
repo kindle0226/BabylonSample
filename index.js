@@ -97,6 +97,8 @@ var onload = function () {
                 //scene.getMeshByName("Labels").setEnabled(false);
                 //scene.debugLayer.show(true);
                 //createScene(scene,engine,canvas);
+                var camera = scene.activeCamera;
+                camera.speed = 0.1;
             }
         },
 
